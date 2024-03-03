@@ -1,0 +1,45 @@
+.container{
+    flex: 1;
+    height: 100%;
+    padding: 20px;
+}
+
+
+.mobileContainer{
+    display: none;
+    height: 100%;
+    /* width: 60%; */
+    /* flex: 2; */
+    width: 60%;
+    background-color: white;
+    position: absolute;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    display: flex;
+    /* gap: 10px; */
+    align-items: center;
+}
+
+.logo h3{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.list{
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 768px) {
+    .container{
+        display: none;
+    }
+}

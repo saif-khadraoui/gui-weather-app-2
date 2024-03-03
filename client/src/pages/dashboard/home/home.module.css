@@ -1,0 +1,225 @@
+.container{
+    /* flex: 7; */
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 20px;
+    width: 100%;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.location{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.input{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    background-color: white;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.input input{
+    border: none;
+    outline: none;
+    width: 300px;
+}
+
+.homeComponents{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+}
+
+.summaryWeather{
+    width: 300px;
+    height: 250px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.summaryWeather h6{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.summaryWeather .top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.summaryWeather .middle{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summaryWeather .middle h6{
+    font-weight: bold;
+    font-size: 60px;
+}
+
+.summaryWeather .bottom .info span{
+    font-weight: bold;
+}
+
+.summaryWeather .weatherIcon img{
+    width: 100px;
+    height: 100px;
+}
+
+.weeklyWeather{
+    display: flex;
+    gap: 10px;
+}
+
+.day{
+    width: 150px;
+    height: 250px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.day h4{
+    font-size: 16px;
+}
+
+.day h3{
+    font-size: 36px;
+}
+
+.day img{
+    width: 100px;
+    height: 100px;
+}
+
+.inDepthWeather{
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    width: 620px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.inDepthWeather .headers{
+    width: 100%;
+    /* height: 10%; */
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.inDepthWeather .headers h6{
+    font-size: 15px;
+
+}
+
+.data{
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.temperatureData{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.temperatureData img{
+    height: 15px;
+    width: 15px;
+}
+
+.commoditiesGraph{
+    background-color: white;
+    width: 470px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .container{
+        display: flex;
+        justify-content: center;
+    }
+    .input input{
+        max-width: 150px;
+    }
+
+    .weeklyWeather{
+        width: 100%;
+        /* max-height: 250px;
+        overflow-x: auto; */
+        /* display: none; */
+    }
+
+
+    .weeklyWeather .day{
+        max-width: 20%;
+    }
+
+    .homeComponents{
+        flex-direction: column;
+    }
+
+    .summaryWeather{
+        width: 100%;
+    }
+
+    .inDepthWeather{
+        width: 100%;
+    }
+
+    .commoditiesGraph{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .weeklyWeather .day{
+        height: 150px;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .weeklyWeather{
+        display: none;
+    }
+}

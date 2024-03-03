@@ -1,0 +1,22 @@
+.container{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* .container:hover{
+    background-color: var(--buttonActive);
+    color: white;
+} */
+
+.active{
+    background-color: var(--activeButton);
+    color: white;
+}
+
