@@ -6,6 +6,8 @@ import "./globals.css"
 import History from './pages/dashboard/history/History'
 import Analytics from './pages/dashboard/analytics/Analytics'
 import Alerts from './pages/dashboard/alerts/Alerts'
+import Login from './pages/login/Login'
+import Register from './pages/register/Register'
 
 function App() {
 
@@ -19,7 +21,8 @@ function App() {
             <Route path="/dashboard/analytics" element={<Analytics />} />
             <Route path="/dashboard/alerts" element={<Alerts />} />
           </Route>
-
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
     </div>
