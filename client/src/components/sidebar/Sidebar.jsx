@@ -35,7 +35,12 @@ function Sidebar() {
     }
   ]
 
-  const itemsLoggedIn = []
+  const settingsItem = {
+    title: "Settings",
+    path: "/dashboard/settings",
+    icon: <GoAlertFill />
+  }
+
 
   const closeMobileContainer = () => {
     document.getElementById("mobileContainer").style.display = "none"
@@ -45,15 +50,19 @@ function Sidebar() {
   return (
     <>
       <div className={styles.container}>
+        <div className={styles.top}>
           <div className={styles.logo}>
-            <IoCloudyNightSharp style={{ width: "32px", height: "32px" }}/>
-            <h3>FarmCast</h3>
-          </div>
-          <ul className={styles.list}>
-            {items.map((item, idx) => {
-              return <MenuLink item={item}/>
-            })}
-          </ul>
+              <IoCloudyNightSharp style={{ width: "32px", height: "32px" }}/>
+              <h3>FarmCast</h3>
+            </div>
+            <ul className={styles.list}>
+              {items.map((item, idx) => {
+                return <MenuLink item={item}/>
+              })}
+            </ul>
+        </div>
+        <MenuLink item={settingsItem}/>
+
       </div>
       <div className={styles.mobileContainer} id="mobileContainer">
         <div className={styles.header}>

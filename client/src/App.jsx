@@ -8,6 +8,7 @@ import Analytics from './pages/dashboard/analytics/Analytics'
 import Alerts from './pages/dashboard/alerts/Alerts'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
+import Settings from './pages/dashboard/settings/Settings'
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route path="/dashboard/history" element={<History />} />
             <Route path="/dashboard/analytics" element={<Analytics />} />
             <Route path="/dashboard/alerts" element={<Alerts />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

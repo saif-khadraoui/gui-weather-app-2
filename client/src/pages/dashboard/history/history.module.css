@@ -1,4 +1,50 @@
 .container{
     flex: 7;
     height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.summaryWeather{
+    width: 300px;
+    height: 250px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.summaryWeather h6{
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.summaryWeather .top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.summaryWeather .middle{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summaryWeather .middle h6{
+    font-weight: bold;
+    font-size: 60px;
+}
+
+.summaryWeather .bottom .info span{
+    font-weight: bold;
+}
+
+.summaryWeather .weatherIcon img{
+    width: 100px;
+    height: 100px;
 }
