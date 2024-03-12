@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 function Navbar() {
   const navigate = useNavigate()
+  const userId = localStorage.getItem("userId")
 
   const openMobileSidebar = () => {
       document.getElementById("mobileContainer").style.display = "block"
@@ -18,9 +19,12 @@ function Navbar() {
   return (
     <div className={styles.container}>
         <IoMdMenu style={{ width: "30px", height: "30px", cursor: "pointer" }} className={styles.hamburger} id="hamburger" onClick={openMobileSidebar}/>
-        <div className={styles.button}>
-          <button onClick={routeLogin}>Login</button>
-        </div>
+
+        {!userId && (
+          <div className={styles.button}>
+            <button onClick={routeLogin}>Login</button>
+          </div>
+        )}
     </div>
   )
 }
