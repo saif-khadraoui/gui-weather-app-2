@@ -9,7 +9,7 @@ import useGeolocation from "react-hook-geolocation";
 
 function Home() {
   const geolocation = useGeolocation()
-  console.log(geolocation.latitude)
+  const userId = localStorage.getItem("userId")
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const d = new Date().getDay()
   const currentDay = days[d]
@@ -237,7 +237,11 @@ function Home() {
 
         </div>
         <div className={styles.commoditiesGraph}>
-          <p>Login to see your favourite farm utilities</p>
+          {userId ? (
+            <p>Change your preference in settings for commodities</p>
+          ) : (
+            <p>Login to see your favourite farm utilities</p>
+          )}
         </div>
 
         </div>

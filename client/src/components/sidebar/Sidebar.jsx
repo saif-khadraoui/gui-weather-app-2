@@ -11,6 +11,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import MenuLink from './menuLink/MenuLink';
 
 function Sidebar() {
+  const userId = localStorage.getItem("userId")
 
   const items = [
     {
@@ -61,7 +62,9 @@ function Sidebar() {
               })}
             </ul>
         </div>
-        <MenuLink item={settingsItem}/>
+        {userId && (
+          <MenuLink item={settingsItem}/>
+        )}
 
       </div>
       <div className={styles.mobileContainer} id="mobileContainer">
@@ -79,6 +82,9 @@ function Sidebar() {
             return <MenuLink item={item}/>
           })}
         </ul>
+        {userId && (
+          <MenuLink item={settingsItem}/>
+        )}
       </div>
     </>
   )
