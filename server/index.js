@@ -45,6 +45,18 @@ app.get("/api/login", async(req, res) => {
     }
 })
 
+app.get("/api/getProfile", async(req, res) => {
+    const { id } = req.query;
+
+    try{
+        const user = await UsersModel.find({ _id: id })
+        res.send(user)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
 
 
 

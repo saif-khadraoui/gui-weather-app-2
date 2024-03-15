@@ -21,7 +21,7 @@ function App() {
             <Route path="/dashboard/history" element={<History />} />
             <Route path="/dashboard/analytics" element={<Analytics />} />
             <Route path="/dashboard/alerts" element={<Alerts />} />
-            <Route path="/dashboard/settings" element={<Settings />} />
+            <Route path="/dashboard/settings/:id" element={<Settings />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
