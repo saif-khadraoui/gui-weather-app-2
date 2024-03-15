@@ -9,11 +9,14 @@ import Alerts from './pages/dashboard/alerts/Alerts'
 import Login from './pages/login/Login'
 import Register from './pages/register/Register'
 import Settings from './pages/dashboard/settings/Settings'
+import { UserContext } from "./contexts/UserContext"
 
 function App() {
+  let savedLocations = []
 
   return (
     <div className="app">
+      <UserContext.Provider value={{ savedLocations }}>
       <Router>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>
@@ -27,6 +30,7 @@ function App() {
           <Route path="/register" element={<Register />} />
         </Routes>
       </Router>
+      </UserContext.Provider>
     </div>
   )
 }

@@ -1,9 +1,10 @@
 .container{
     flex: 7;
-    height: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .settings{
@@ -66,4 +67,10 @@
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+@media screen and (max-width: 595px) {
+    .container{
+        height: 100%;
+    }
 }

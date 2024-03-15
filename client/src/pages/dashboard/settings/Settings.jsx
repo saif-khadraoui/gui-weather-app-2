@@ -7,12 +7,15 @@ import { PiPlantLight } from "react-icons/pi";
 import { RiOilLine } from "react-icons/ri";
 import Axios from "axios"
 import { useParams } from "react-router-dom"
+import AddPreferenceModal from '../../../components/addPreferenceModal/AddPreferenceModal';
 
 function Settings() {
 
   const {id} = useParams()
   const [email, setEmail] = useState()
   const [username, setUsername] = useState()
+  const [modal, setModal] = useState(false)
+  const [type, setType] = useState("")
 
   useEffect(() => {
     const getProfile = async () => {
@@ -28,6 +31,11 @@ function Settings() {
     getProfile()
   }, [])
 
+  const openModal = (preference) => {
+    setModal(true)
+    setType(preference)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.settings}>
@@ -41,21 +49,21 @@ function Settings() {
         </div>
         <div className={styles.preferences}>
           <h5>Preferences</h5>
-          <div className={styles.locationPreference} id={styles.preference}>
+          <div className={styles.locationPreference} id={styles.preference} onClick={(() => openModal("location"))}>
             <div className={styles.left}>
               <IoLocationOutline />
               <p>Add location</p>
             </div>
             <IoIosArrowForward />
           </div>
-          <div className={styles.cropsPreference} id={styles.preference}>
+          <div className={styles.cropsPreference} id={styles.preference} onClick={(() => openModal("crop"))}>
             <div className={styles.left}>
               <PiPlantLight />
               <p>Add crop</p>
             </div>
             <IoIosArrowForward />
           </div>
-          <div className={styles.commoditiesPreference} id={styles.preference}>
+          <div className={styles.commoditiesPreference} id={styles.preference} onClick={(() => openModal("commodity"))}>
             <div className={styles.left}>
               <RiOilLine />
               <p>Add commodity</p>
@@ -67,6 +75,7 @@ function Settings() {
           <button>Save</button>
         </div>
       </div>
+      {modal && <AddPreferenceModal type ={type} setModal={setModal}/>}
     </div>
   )
 }
