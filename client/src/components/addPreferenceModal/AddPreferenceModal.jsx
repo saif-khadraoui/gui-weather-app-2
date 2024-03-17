@@ -10,7 +10,8 @@ function AddPreferenceModal({ type, setModal }) {
     const { savedLocations, setSavedLocations } = useContext(UserContext)
     // const [savedLocationsState, setSavedLocationsState] = useState(savedLocations)
     const [locations, setLocations] = useState([])
-    const apiKey = "286326f4933546ffacd81752240103"
+    const apiKey = process.env.API_KEY
+    // console.log(`api key is ${process.env.API_KEY}`)
     const userId = localStorage.getItem("userId")
 
     const autocompleteSearch = async (e) => {

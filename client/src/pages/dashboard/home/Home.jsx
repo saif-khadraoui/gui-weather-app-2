@@ -115,6 +115,7 @@ function Home() {
 
     getCurrentLocationWeather()
 
+
   }, [])
 
   return (
