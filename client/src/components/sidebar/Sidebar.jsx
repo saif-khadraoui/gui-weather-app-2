@@ -38,7 +38,7 @@ function Sidebar() {
 
   const settingsItem = {
     title: "Settings",
-    path: "/dashboard/settings",
+    path: `/dashboard/settings/${userId}`,
     icon: <GoAlertFill />
   }
 

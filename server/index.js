@@ -67,7 +67,36 @@ app.get("/api/login", async(req, res) => {
     }
 })
 
+app.get("/api/getProfile", async(req, res) => {
+    const { id } = req.query;
 
+    try{
+        const user = await UsersModel.find({ _id: id })
+        res.send(user)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
+app.post("/api/updateLocationPreference", async(req, res) => {
+    const { userId, savedLocations } = req.body;
+
+    try{
+        for(let i=0; i<=savedLocations.length-1; i++){
+            await UsersModel.findOneAndUpdate({_id: userId}, {$push: {
+                locations: savedLocations[i]
+            }})
+        }
+        // const response = await UsersModel.findOneAndUpdate({_id: userId}, {$push: {
+        //     locations: savedLocations
+        // }})
+        res.send("items added")
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
 
 
 app.listen(PORT, () => {
