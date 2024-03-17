@@ -47,6 +47,9 @@ function Settings() {
           <input type='email' placeholder={email} />
           <input type='text' placeholder={username} />
         </div>
+        <div className={styles.button}>
+          <button>Save</button>
+        </div>
         <div className={styles.preferences}>
           <h5>Preferences</h5>
           <div className={styles.locationPreference} id={styles.preference} onClick={(() => openModal("location"))}>
@@ -70,9 +73,6 @@ function Settings() {
             </div>
             <IoIosArrowForward />
           </div>
-        </div>
-        <div className={styles.button}>
-          <button>Save</button>
         </div>
       </div>
       {modal && <AddPreferenceModal type ={type} setModal={setModal}/>}

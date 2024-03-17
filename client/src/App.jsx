@@ -12,11 +12,12 @@ import Settings from './pages/dashboard/settings/Settings'
 import { UserContext } from "./contexts/UserContext"
 
 function App() {
-  let savedLocations = []
+  // let savedLocations = []
+  const [savedLocations, setSavedLocations] = useState([])
 
   return (
     <div className="app">
-      <UserContext.Provider value={{ savedLocations }}>
+      <UserContext.Provider value={{ savedLocations, setSavedLocations }}>
       <Router>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>

@@ -7,9 +7,11 @@ import { UserContext } from "../../contexts/UserContext"
 
 function AddPreferenceModal({ type, setModal }) {
 
-    const { savedLocations } = useContext(UserContext)
+    const { savedLocations, setSavedLocations } = useContext(UserContext)
+    // const [savedLocationsState, setSavedLocationsState] = useState(savedLocations)
     const [locations, setLocations] = useState([])
     const apiKey = "286326f4933546ffacd81752240103"
+    const userId = localStorage.getItem("userId")
 
     const autocompleteSearch = async (e) => {
         // console.log(e.target.value)
@@ -23,17 +25,54 @@ function AddPreferenceModal({ type, setModal }) {
 
     const closeModal = () => {
         setModal(false)
-        for(let item in savedLocations){
-            savedLocations.pop(item)
-        }
+        // for(let item in savedLocations){
+        //     savedLocations.pop(item)
+        // }
+        setSavedLocations([])
     }
 
     const addLocation = (item) => {
         setLocations([])
-        if(!(item in savedLocations)){
-            savedLocations.push(item)
+
+        for(let i=0; i<=savedLocations.length-1; i++){
+            if(savedLocations[i].id == item.id){
+                alert("location already added")
+                return
+            }
         }
+
+        // savedLocations.push(item)
+        setSavedLocations(prev => [...prev, item])
+
+        // if(savedLocations.indexOf(item) >= 0){
+        // } else{
+            
+        // }
         console.log(savedLocations)
+    }
+
+    const deleteSavedPreference = (itemId) => {
+        console.log(itemId)
+        console.log(savedLocations)
+
+
+        setSavedLocations(prev => prev.filter((item) => item.id !== itemId))
+        
+        // for(let i=0; i<=savedLocations.length-1; i++){
+        //     if(savedLocations[i].id == itemId){
+        //         savedLocations.pop(i)
+        //     }
+        // }
+    }
+
+    const savePreference = async () => {
+        console.log(savedLocations)
+        await Axios.post("http://localhost:1999/api/updateLocationPreference", {
+            userId: userId,
+            savedLocations: savedLocations
+        }).then((response) => {
+            console.log(response)
+        })
     }
 
 
@@ -66,8 +105,16 @@ function AddPreferenceModal({ type, setModal }) {
             </div>
             <div className={styles.savedPreference}>
                 {savedLocations.map((item, idx) => {
-                    return <p>{item.name}, {item.region}</p>
+                    return (
+                        <div className={styles.savedItem}>
+                            <p>{item.name}, {item.region}</p>
+                            <IoMdClose style={{ cursor: "pointer" }} onClick={() => deleteSavedPreference(item.id)}/>
+                        </div>
+                    )
                 })}
+            </div>
+            <div className={styles.button}>
+                <button onClick={savePreference}>Save</button>
             </div>
         </div>
     </div>
