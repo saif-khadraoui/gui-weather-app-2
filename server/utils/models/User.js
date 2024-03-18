@@ -13,6 +13,18 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    locations: {
+        type: Array,
+        required: false
+    },
+    crops: {
+        type: Array,
+        required: false
+    }, 
+    commodities: {
+        type: Array,
+        required: false
+    }
 
 })
 

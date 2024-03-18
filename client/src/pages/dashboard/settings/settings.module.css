@@ -1,4 +1,76 @@
 .container{
     flex: 7;
-    height: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.settings{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profilePic .picture{
+    height: 150px;
+    width: 150px;
+}
+
+.userDetails{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.userDetails input{
+    padding: 5px;
+    outline: none;
+    border: none;
+    width: 250px;
+}
+
+.preferences{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#preference{
+    width: 250px;
+    height: 26px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#preference .left{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 100;
+}
+
+.button button{
+    width: 60px;
+    padding: 5px;
+    background-color: var(--activeButton);
+    color: white;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 595px) {
+    .container{
+        height: 100%;
+    }
 }
