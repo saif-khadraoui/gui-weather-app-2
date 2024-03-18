@@ -69,6 +69,16 @@
     cursor: pointer;
 }
 
+.locationPreferenceResult{
+    height: 26px;
+    width: 100%;
+    padding: 5px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 @media screen and (max-width: 595px) {
     .container{
         height: 100%;

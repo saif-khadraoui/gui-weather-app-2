@@ -98,6 +98,25 @@ app.post("/api/updateLocationPreference", async(req, res) => {
     }
 })
 
+app.delete("/api/deleteSavedLocation", async(req, res) => {
+    const { userId, locationId } = req.query;
+    console.log(userId, locationId)
+
+    try{
+        const response = await UsersModel.updateOne({_id: userId}, {
+            $pull: {
+                locations: 
+                {
+                    id: locationId
+        }}})
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
+})
+
 
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)
