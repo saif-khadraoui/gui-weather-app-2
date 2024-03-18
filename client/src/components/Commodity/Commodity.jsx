@@ -46,9 +46,9 @@ const Commodity = ({ name, ticker, price, change, contract, time }) => {
             <div className="commodity">
                 <span>{commodityEmojis[name]}</span>
                 <span>{name}</span>
-                <span>Price: {price} {change}</span>
-                <span>{time}</span>
+                <span> £{price} {change}</span>
                 {<span style={{ color: color }}> {indicator}</span>}
+                <span> 🕒{time}</span>
             </div>
         </div>
     );
