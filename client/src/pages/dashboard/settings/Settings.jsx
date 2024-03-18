@@ -34,7 +34,7 @@ function Settings() {
     }
 
     getProfile()
-  }, [])
+  }, [modal, savedLocations])
 
   const openModal = (preference) => {
     setModal(true)
@@ -43,8 +43,9 @@ function Settings() {
 
   const deleteSavedLocation = async (locationId) => {
     console.log(locationId)
-    await Axios.delete("http://localhost:1999/api/deleteSavedLocation", {
-      params: { userId, locationId }
+    await Axios.post("http://localhost:1999/api/deleteSavedLocation", {
+      userId: userId,
+      locationId: locationId
     }).then((response) => {
       console.log(response)
     })

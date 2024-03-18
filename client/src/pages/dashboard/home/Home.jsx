@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from "./home.module.css"
 import { IoSearch } from "react-icons/io5";
 import { FaLocationArrow } from "react-icons/fa";
 import { MdSunny } from "react-icons/md";
 import Axios from "axios";
 import useGeolocation from "react-hook-geolocation";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../../../contexts/UserContext';
 
 
 function Home() {
@@ -13,6 +16,7 @@ function Home() {
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   const d = new Date().getDay()
   const currentDay = days[d]
+  const {toastState, setToastState} = useContext(UserContext)
   const [position, setPosition] = useState();
   const [location, setLocation] = useState("")
   const [chosenLocation, setChosenLocation] = useState("")
@@ -56,6 +60,11 @@ function Home() {
       setWeeklyWeather(response.data?.forecast?.forecastday)
       console.log(response.data?.forecast?.forecastday[0]?.hour)
       setDayWeather(response.data?.forecast?.forecastday[0].hour)
+      if(response.data.current.wind_kph > 10 && response.data.current.wind_kph < 30){
+        toast("It isn't too windy in this location, crops here should be safe")
+      }
+    
+
     })
 
 
@@ -78,6 +87,13 @@ function Home() {
     //console.log(response.data?.forecast?.forecastday)
     setWeeklyWeather(response.data?.forecast?.forecastday)
     setDayWeather(response.data?.forecast?.forecastday[0].hour)
+    if(toastState === false){
+      //console.log(response.data.wind_kph)
+      if(response.data.current.wind_kph > 10 && response.data.current.wind_kph < 30){
+        toast("It isn't too windy, your crops should be safe today")
+      }
+      setToastState(true)
+    }
   })
     
   }
@@ -252,6 +268,7 @@ function Home() {
           
           
       </div>
+      <ToastContainer />
     </div>
   )
 }

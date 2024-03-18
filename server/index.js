@@ -82,15 +82,25 @@ app.get("/api/getProfile", async(req, res) => {
 app.post("/api/updateLocationPreference", async(req, res) => {
     const { userId, savedLocations } = req.body;
 
+    // need to fix db solution
+    // await UsersModel.updateOne((
+    //     { _id: userId,
+    //       locations: { $not: { $elemMatch: { id: savedLocations[i].id } } }
+    //     },
+    //     { $push: { locations: savedLocations[i] } }
+    //   ))
+
     try{
         for(let i=0; i<=savedLocations.length-1; i++){
-            await UsersModel.findOneAndUpdate({_id: userId}, {$push: {
-                locations: savedLocations[i]
-            }})
+            console.log(savedLocations[i].id)
+            const count = await UsersModel.find({_id: userId, locations: {$elemMatch: {id: savedLocations[i].id}}})
+            console.log(count)
+            if(count){
+                await UsersModel.updateOne({ _id: userId }, {$push: {locations: savedLocations[i]}})
+            } else{
+                console.log("duplicate found: ", savedLocations[i].name)
+            }
         }
-        // const response = await UsersModel.findOneAndUpdate({_id: userId}, {$push: {
-        //     locations: savedLocations
-        // }})
         res.send("items added")
     } catch(err){
         console.log(err)
@@ -98,8 +108,8 @@ app.post("/api/updateLocationPreference", async(req, res) => {
     }
 })
 
-app.delete("/api/deleteSavedLocation", async(req, res) => {
-    const { userId, locationId } = req.query;
+app.post("/api/deleteSavedLocation", async(req, res) => {
+    const { userId, locationId } = req.body;
     console.log(userId, locationId)
 
     try{
