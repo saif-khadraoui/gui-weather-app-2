@@ -3,6 +3,7 @@ import styles from "./settings.module.css";
 import { CgProfile } from "react-icons/cg";
 import { IoLocationOutline } from "react-icons/io5";
 import { IoIosArrowForward } from "react-icons/io";
+import { IoMdClose } from "react-icons/io";
 import { PiPlantLight } from "react-icons/pi";
 import { RiOilLine } from "react-icons/ri";
 import Axios from "axios"
@@ -12,8 +13,11 @@ import AddPreferenceModal from '../../../components/addPreferenceModal/AddPrefer
 function Settings() {
 
   const {id} = useParams()
+  const userId = id
   const [email, setEmail] = useState()
   const [username, setUsername] = useState()
+  const [savedLocations, setSavedLocations] = useState([])
+
   const [modal, setModal] = useState(false)
   const [type, setType] = useState("")
 
@@ -25,6 +29,7 @@ function Settings() {
         console.log(response)
         setEmail(response.data[0].email)
         setUsername(response.data[0].username)
+        setSavedLocations(response.data[0].locations)
       })
     }
 
@@ -34,6 +39,15 @@ function Settings() {
   const openModal = (preference) => {
     setModal(true)
     setType(preference)
+  }
+
+  const deleteSavedLocation = async (locationId) => {
+    console.log(locationId)
+    await Axios.delete("http://localhost:1999/api/deleteSavedLocation", {
+      params: { userId, locationId }
+    }).then((response) => {
+      console.log(response)
+    })
   }
 
   return (
@@ -58,7 +72,15 @@ function Settings() {
               <p>Add location</p>
             </div>
             <IoIosArrowForward />
-          </div>
+            </div>
+            {savedLocations.map((item, idx) => {
+              return (
+                <div className={styles.locationPreferenceResult}>
+                  <p>{item.name}</p>
+                  <IoMdClose style={{ cursor: "pointer" }} onClick={() => deleteSavedLocation(item.id)}/>
+                </div>
+              )
+            })}
           <div className={styles.cropsPreference} id={styles.preference} onClick={(() => openModal("crop"))}>
             <div className={styles.left}>
               <PiPlantLight />
