@@ -1,34 +1,45 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import styles from "./analytics.module.css"
 import CommodityGrid from '../../../components/CommodityGrid/CommodityGrid';
 
 function Analytics() {
-  const historicalData = [
-    { name: 'Wheat', price: 90, previousPrice: null, ticker: 'WHT' },
-    { name: 'Corn', price: 40, previousPrice: null, ticker: 'CL' },
-    { name: 'Cocoa', price: 180, previousPrice: null, ticker: 'COC' }
-  ];
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const predictionsData = [
-    { name: 'Wheat', price: 92, previousprice: 90, ticker: 'WHT' },
-    { name: 'Corn', price: 38, previousprice: 40, ticker: 'CL' },
-    { name: 'Cocoa', price: 180, previousprice: 180, ticker: 'COC' }
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const options = {
+          method: 'GET',
+          url: 'https://bloomberg-api.p.rapidapi.com/bloomberg/agriculture',
+          headers: {
+            'X-RapidAPI-Key': '72a672a52emshff6bdbaef7446cfp1640dcjsn1e45b8a6fea9',
+            'X-RapidAPI-Host': 'bloomberg-api.p.rapidapi.com'
+          }
+        };
+        const response = await axios.request(options);
+        setData(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const actualData = [
-    { name: 'Wheat', price: 89, previousprice: 90, ticker: 'WHT' },
-    { name: 'Corn', price: 50, previousprice: 40, ticker: 'CL' },
-    { name: 'Cocoa', price: 180, previousprice: 180, ticker: 'COC' }
-  ];
+    fetchData();
+  }, []); // The empty array means this effect runs once after the initial render
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
 
 
   return (
     <div className="app">
       <h1>Commodity Prices</h1>
-      <CommodityGrid title="Historical Data" data={historicalData} />
-      <CommodityGrid title="Predictions" data={predictionsData} />
-      <CommodityGrid title="Actual Prices" data={actualData} />
+      <CommodityGrid title="Actual Prices" data={data} />
     </div>
   );
 }
