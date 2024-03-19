@@ -6,13 +6,14 @@ const CommodityGrid = ({ data, title }) => {
         <div className="commodity-grid">
             <h2>{title}</h2>
             <div className="grid-container">
-                {data.map((commodity, index) => (
+                {Object.keys(data).map((key, index) => (
                     <Commodity
-                        key={index}
-                        name={commodity.name}
-                        ticker={commodity.ticker}
-                        price={commodity.price}
-                        previousPrice={commodity.previousprice}
+                        name={data[key].name}
+                        ticker={key}
+                        price={data[key].Price}
+                        change={data[key].Change}
+                        contract={data[key].Contract}
+                        time={data[key]['Time (EDT)']}
                     />
                 ))}
             </div>
