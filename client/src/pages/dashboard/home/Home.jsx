@@ -8,6 +8,7 @@ import useGeolocation from "react-hook-geolocation";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from '../../../contexts/UserContext';
+import LocationSelector from '../../../components/locationSelector/LocationSelector';
 
 
 function Home() {
@@ -27,16 +28,18 @@ function Home() {
     humidity: null,
     wind: null
   })
+  const [locations, setLocations] = useState([])
   const [weeklyWeather, setWeeklyWeather] = useState([])
   const [dayWeather, setDayWeather] = useState([])
 
   const enterSearch = async (event) => {
     if (event.key == "Enter"){
-      await searchWeather()
+      await searchWeather(location)
     }
   }
 
-  const searchWeather = async () => {
+  const searchWeather = async (location) => {
+    console.log(location)
     console.log(weeklyWeather)
     setChosenLocation(location)
 
@@ -129,6 +132,18 @@ function Home() {
 
     }
 
+    const getLocations = async () => {
+      const id = userId
+      await Axios.get("http://localhost:1999/api/getProfile", {
+          params: { id }
+      }).then((response) => {
+          console.log(response)
+          setLocations(response.data[0].locations)
+      })
+  }
+
+    getLocations()
+
     getCurrentLocationWeather()
 
 
@@ -140,7 +155,7 @@ function Home() {
         <div className={styles.header}>
           <div className={styles.location}>
             <FaLocationArrow />
-            {chosenLocation.length > 0 ? (
+            {chosenLocation?.length > 0 ? (
               <p>{chosenLocation}</p>
             ) : (
               <>
@@ -159,7 +174,18 @@ function Home() {
           </div>
           <div className={styles.input}>
             <input type="text" placeholder='search a city' onChange={((e) => setLocation(e.target.value))} onKeyDown={enterSearch}/>
-            <IoSearch onClick={searchWeather}/>
+            <IoSearch onClick={() => searchWeather(location)}/>
+          </div>
+          {/* <LocationSelector /> */}
+          <div className={styles.locationPicker}>
+            <select onChange={(e) => (searchWeather(e.target.value))}>
+              <option>Select a location</option>
+              {locations.map((item, idx) => {
+                  return (
+                      <option>{item.name}</option>
+                  )
+              })}
+            </select>
           </div>
         </div>
         {position ? (

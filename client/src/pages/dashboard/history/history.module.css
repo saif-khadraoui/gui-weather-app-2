@@ -7,6 +7,11 @@
     gap: 20px;
 }
 
+.weatherComponents{
+    display: flex;
+    gap: 20px;
+}
+
 .summaryWeather{
     width: 300px;
     height: 250px;
@@ -99,4 +104,23 @@
 .inDepthWeather .headers h6{
     font-size: 15px;
 
+}
+
+.data{
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.temperatureData{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.temperatureData img{
+    height: 15px;
+    width: 15px;
 }

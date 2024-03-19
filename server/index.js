@@ -54,7 +54,7 @@ app.get("/api/login", async(req, res) => {
 
         if (isMatch) {
             // Passwords match
-            res.send("Login successful");
+            res.send(user);
         } else {
             // Passwords do not match
             res.status(400).send("Incorrect username or password.");
@@ -126,6 +126,14 @@ app.post("/api/deleteSavedLocation", async(req, res) => {
     }
 
 })
+
+// app.get("/api/getSavedLocations", async(req, res) => {
+//     const { userId } = req.body;
+
+//     try{
+//         const response = 
+//     }
+// })
 
 
 app.listen(PORT, () => {

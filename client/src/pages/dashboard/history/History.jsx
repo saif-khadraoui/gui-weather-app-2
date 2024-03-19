@@ -11,6 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 function History() {
   const apiKey = "286326f4933546ffacd81752240103"
   const currentDate = new Date().toISOString().slice(0, 10)
+  console.log(currentDate)
   const [date, setDate] = useState(currentDate)
   const [weatherData, setWeatherData] = useState({
     temperature: null,
@@ -22,7 +23,7 @@ function History() {
   const [dayWeather, setDayWeather] = useState([])
 
   const fetchWeather = async (datePicked) => {
-    await Axios.get(`http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=London&dt=${datePicked}`).then((response) => {
+    await Axios.get(`http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=London&dt=${datePicked ? datePicked : currentDate}`).then((response) => {
       console.log(response)
       console.log(date)
       setWeatherData({
@@ -57,7 +58,7 @@ function History() {
           <div className={styles.dateOption}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <h4>Pick a date</h4>
-              <DatePicker onChange={((e) => setDate(e))}/>
+              <DatePicker onChange={((e) => setDate(e))} />
             </LocalizationProvider>
           </div>
           {/* <div className={styles.dateOption}>
