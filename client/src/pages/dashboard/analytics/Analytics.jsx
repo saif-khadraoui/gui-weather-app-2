@@ -21,6 +21,7 @@ function Analytics() {
         };
         const response = await axios.request(options);
         setData(response.data);
+        console.log(response.data)
       } catch (error) {
         setError(error);
       } finally {

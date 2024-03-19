@@ -17,6 +17,7 @@ function Settings() {
   const [email, setEmail] = useState()
   const [username, setUsername] = useState()
   const [savedLocations, setSavedLocations] = useState([])
+  const [savedCrops, setSavedCrops] = useState([])
 
   const [modal, setModal] = useState(false)
   const [type, setType] = useState("")
@@ -26,15 +27,16 @@ function Settings() {
       await Axios.get("http://localhost:1999/api/getProfile", {
         params: { id }
       }).then((response) => {
-        console.log(response)
+        // console.log(response)
         setEmail(response.data[0].email)
         setUsername(response.data[0].username)
         setSavedLocations(response.data[0].locations)
+        setSavedCrops(response.data[0].crops)
       })
     }
 
     getProfile()
-  }, [modal, savedLocations])
+  }, [modal, savedLocations, savedCrops])
 
   const openModal = (preference) => {
     setModal(true)
@@ -46,6 +48,16 @@ function Settings() {
     await Axios.post("http://localhost:1999/api/deleteSavedLocation", {
       userId: userId,
       locationId: locationId
+    }).then((response) => {
+      console.log(response)
+    })
+  }
+
+  const deleteSavedCrop = async (crop) => {
+    console.log(crop)
+    await Axios.post("http://localhost:1999/api/deleteSavedCrop", {
+      userId: userId,
+      crop: crop
     }).then((response) => {
       console.log(response)
     })
@@ -74,6 +86,7 @@ function Settings() {
             </div>
             <IoIosArrowForward />
             </div>
+
             {savedLocations.map((item, idx) => {
               return (
                 <div className={styles.locationPreferenceResult}>
@@ -89,13 +102,21 @@ function Settings() {
             </div>
             <IoIosArrowForward />
           </div>
-          <div className={styles.commoditiesPreference} id={styles.preference} onClick={(() => openModal("commodity"))}>
+          {savedCrops.map((item, idx) => {
+              return (
+                <div className={styles.locationPreferenceResult}>
+                  <p>{item}</p>
+                  <IoMdClose style={{ cursor: "pointer" }} onClick={() => deleteSavedCrop(item)}/>
+                </div>
+              )
+          })}
+          {/* <div className={styles.commoditiesPreference} id={styles.preference} onClick={(() => openModal("commodity"))}>
             <div className={styles.left}>
               <RiOilLine />
               <p>Add commodity</p>
             </div>
             <IoIosArrowForward />
-          </div>
+          </div> */}
         </div>
       </div>
       {modal && <AddPreferenceModal type ={type} setModal={setModal}/>}
