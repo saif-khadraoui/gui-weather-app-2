@@ -3,9 +3,9 @@ import Commodity from '../Commodity/Commodity';
 
 const CommodityGrid = ({ data, title }) => {
     return (
-        <div className="commodity-grid">
+        <div className={styles.container}>
             <h2>{title}</h2>
-            <div className="grid-container">
+            <div className={styles.table}>
                 {Object.keys(data).map((key, index) => (
                     <Commodity
                         name={data[key].name}

@@ -23,7 +23,7 @@ function AddPreferenceModal({ type, setModal }) {
         } else if (type == "crop" && e.target.value !== ""){
             const wordEntered = e.target.value;
             const filteredResult = Crops.filter((crop) => {
-                return crop.includes(wordEntered)
+                return crop.name.includes(wordEntered)
             })
             // console.log(filteredResult)
             setResult(filteredResult)
@@ -54,7 +54,7 @@ function AddPreferenceModal({ type, setModal }) {
             setSavedLocations(prev => [...prev, item])
         } else{
             for(let i=0; i<=savedCrops.length-1; i++){
-                if(savedCrops[i] == item){
+                if(savedCrops[i].name == item){
                     alert("location already added")
                     return
                 }
@@ -89,7 +89,7 @@ function AddPreferenceModal({ type, setModal }) {
     }
 
     const savePreference = async () => {
-        console.log(savedLocations)
+        // console.log(savedLocations, savedCrops)
         if(type == "location"){
             await Axios.post("http://localhost:1999/api/updateLocationPreference", {
                 userId: userId,
@@ -141,7 +141,7 @@ function AddPreferenceModal({ type, setModal }) {
                                     {result.map((item, idx) => {
                                         return (
                                             <div className={styles.searchItem} onClick={() => addSavedPreference(item)}>
-                                                <p>{item}</p>
+                                                <p>{item.name}</p>
                                             </div>
                                         )
                                     })}
@@ -172,7 +172,7 @@ function AddPreferenceModal({ type, setModal }) {
                         {savedCrops.map((item, idx) => {
                             return (
                                 <div className={styles.savedItem}>
-                                    <p>{item}</p>
+                                    <p>{item.name}</p>
                                     <IoMdClose style={{ cursor: "pointer" }} onClick={() => deleteSavedPreference(item.id)}/>
                                 </div>
                             )

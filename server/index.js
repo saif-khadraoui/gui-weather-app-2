@@ -50,7 +50,7 @@ app.get("/api/login", async(req, res) => {
             return res.status(404).send('User not found.');
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch =  bcrypt.compare(password, user.password);
 
         if (isMatch) {
             // Passwords match
@@ -110,6 +110,7 @@ app.post("/api/updateLocationPreference", async(req, res) => {
 
 app.post("/api/updateCropPreference", async(req, res) => {
     const { userId, savedCrops } = req.body;
+    console.log(savedCrops)
 
     try{
         for(let i=0; i<=savedCrops.length-1; i++){

@@ -105,7 +105,7 @@ function Settings() {
           {savedCrops.map((item, idx) => {
               return (
                 <div className={styles.locationPreferenceResult}>
-                  <p>{item}</p>
+                  <p>{item.name}</p>
                   <IoMdClose style={{ cursor: "pointer" }} onClick={() => deleteSavedCrop(item)}/>
                 </div>
               )
