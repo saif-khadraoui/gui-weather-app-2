@@ -50,11 +50,11 @@ app.get("/api/login", async(req, res) => {
             return res.status(404).send('User not found.');
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch =  bcrypt.compare(password, user.password);
 
         if (isMatch) {
             // Passwords match
-            res.send("Login successful");
+            res.send(user);
         } else {
             // Passwords do not match
             res.status(400).send("Incorrect username or password.");
@@ -108,6 +108,28 @@ app.post("/api/updateLocationPreference", async(req, res) => {
     }
 })
 
+app.post("/api/updateCropPreference", async(req, res) => {
+    const { userId, savedCrops } = req.body;
+    console.log(savedCrops)
+
+    try{
+        for(let i=0; i<=savedCrops.length-1; i++){
+            console.log(savedCrops[i])
+            const count = await UsersModel.find({_id: userId, crops: {$elemMatch: {id: savedCrops[i]}}})
+            console.log(count)
+            if(count){
+                await UsersModel.updateOne({ _id: userId }, {$push: {crops: savedCrops[i]}})
+            } else{
+                console.log("duplicate found: ", savedCrops[i])
+            }
+        }
+        res.send("items added")
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+})
+
 app.post("/api/deleteSavedLocation", async(req, res) => {
     const { userId, locationId } = req.body;
     console.log(userId, locationId)
@@ -126,6 +148,31 @@ app.post("/api/deleteSavedLocation", async(req, res) => {
     }
 
 })
+
+app.post("/api/deleteSavedCrop", async(req, res) => {
+    const { userId, crop } = req.body;
+    console.log(userId, crop)
+
+    try{
+        const response = await UsersModel.updateOne({_id: userId}, {
+            $pull: {
+                crops: crop
+            }})
+        res.send(response)
+    } catch(err){
+        console.log(err)
+        res.send(err)
+    }
+
+})
+
+// app.get("/api/getSavedLocations", async(req, res) => {
+//     const { userId } = req.body;
+
+//     try{
+//         const response = 
+//     }
+// })
 
 
 app.listen(PORT, () => {

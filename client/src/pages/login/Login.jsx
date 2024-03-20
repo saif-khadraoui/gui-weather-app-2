@@ -3,6 +3,8 @@ import styles from "./login.module.css"
 //import LoginForm from '../../components/loginForm/loginForm'
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from "axios"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -18,10 +20,13 @@ function Login() {
     Axios.get("http://localhost:1999/api/login", {
       params: { username, password }
     }).then((response) => {
-      console.log(response)
-      if(response.data.length > 0){
+      console.log(response.data)
+      if(response.data){
         navigate("/dashboard")
-        localStorage.setItem("userId", response.data[0]._id)
+        localStorage.setItem("userId", response.data._id)
+      } else{
+        toast("Incorrect email or password!")
+        console.log("wrong")
       }
     })
   };
@@ -57,6 +62,7 @@ function Login() {
           </form>
           <p>Not a user yet?<Link to="/register">Register here</Link></p>
         </div>
+        <ToastContainer />
     </div>
   )
 }

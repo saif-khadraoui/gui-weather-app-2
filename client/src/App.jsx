@@ -14,11 +14,12 @@ import { UserContext } from "./contexts/UserContext"
 function App() {
   // let savedLocations = []
   const [savedLocations, setSavedLocations] = useState([])
+  const [savedCrops, setSavedCrops] = useState([])
   const [toastState, setToastState] = useState(false)
 
   return (
     <div className="app">
-      <UserContext.Provider value={{ savedLocations, setSavedLocations, toastState, setToastState }}>
+      <UserContext.Provider value={{ savedCrops, setSavedCrops, savedLocations, setSavedLocations, toastState, setToastState }}>
       <Router>
         <Routes>
           <Route path="/dashboard" element={<Dashboard />}>
