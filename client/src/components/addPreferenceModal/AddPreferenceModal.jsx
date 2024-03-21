@@ -8,13 +8,17 @@ import Crops from "./Crops"
 
 function AddPreferenceModal({ type, setModal }) {
 
+    // State from state management
     const { savedLocations, setSavedLocations, savedCrops, setSavedCrops } = useContext(UserContext)
     const [result, setResult] = useState([])
+
+    // api key from .env file
     const apiKey = process.env.API_KEY
     const userId = localStorage.getItem("userId")
 
+
+    // calls the autocomplete api and autocompletes the search
     const autocompleteSearch = async (e) => {
-        // console.log(e.target.value)
         if(type == "location" && e.target.value !== ""){
             await Axios.get(`http://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${e.target.value}`).then((response) => {
                 console.log(response)
@@ -25,25 +29,21 @@ function AddPreferenceModal({ type, setModal }) {
             const filteredResult = Crops.filter((crop) => {
                 return crop.name.includes(wordEntered)
             })
-            // console.log(filteredResult)
             setResult(filteredResult)
         }
     }
 
+    // closes the modal and resets state
     const closeModal = () => {
         setModal(false)
-        // for(let item in savedLocations){
-        //     savedLocations.pop(item)
-        // }
         setSavedLocations([])
         setSavedCrops([])
     }
 
+    // adds the preference to the database
     const addSavedPreference = (item) => {
         setResult([])
 
-
-        // savedLocations.push(item)
         if(type == "location"){
             for(let i=0; i<=savedLocations.length-1; i++){
                 if(savedLocations[i].id == item.id){
@@ -62,34 +62,21 @@ function AddPreferenceModal({ type, setModal }) {
             setSavedCrops(prev => [...prev, item])
         }
 
-        // if(savedLocations.indexOf(item) >= 0){
-        // } else{
-            
-        // }
-        console.log(savedLocations, savedCrops)
     }
 
+    // deletes the preference from the database
+
     const deleteSavedPreference = (itemId) => {
-        console.log(itemId)
-        console.log(savedLocations, savedCrops)
-
-
-
         if(type == "location"){
             setSavedLocations(prev => prev.filter((item) => item.id !== itemId))
         } else{
             setSavedCrops(prev => prev.filter((item) => item.id !== itemId))
         }
-        
-        // for(let i=0; i<=savedLocations.length-1; i++){
-        //     if(savedLocations[i].id == itemId){
-        //         savedLocations.pop(i)
-        //     }
-        // }
     }
 
+
+    // saves the temporary locations in the modal
     const savePreference = async () => {
-        // console.log(savedLocations, savedCrops)
         if(type == "location"){
             await Axios.post("http://localhost:1999/api/updateLocationPreference", {
                 userId: userId,

@@ -12,6 +12,7 @@ import AddPreferenceModal from '../../../components/addPreferenceModal/AddPrefer
 
 function Settings() {
 
+  // state
   const {id} = useParams()
   const userId = id
   const [email, setEmail] = useState()
@@ -22,6 +23,7 @@ function Settings() {
   const [modal, setModal] = useState(false)
   const [type, setType] = useState("")
 
+  // gets the users profile when the page renders and saves their details to state
   useEffect(() => {
     const getProfile = async () => {
       await Axios.get("http://localhost:1999/api/getProfile", {
@@ -38,11 +40,13 @@ function Settings() {
     getProfile()
   }, [modal, savedLocations, savedCrops])
 
+  // opens the modal on click
   const openModal = (preference) => {
     setModal(true)
     setType(preference)
   }
 
+  // deletes the saved location from the database
   const deleteSavedLocation = async (locationId) => {
     console.log(locationId)
     await Axios.post("http://localhost:1999/api/deleteSavedLocation", {
@@ -53,6 +57,7 @@ function Settings() {
     })
   }
 
+  // deletes the saved crop from the database
   const deleteSavedCrop = async (crop) => {
     console.log(crop)
     await Axios.post("http://localhost:1999/api/deleteSavedCrop", {
@@ -107,13 +112,6 @@ function Settings() {
                 </div>
               )
           })}
-          {/* <div className={styles.commoditiesPreference} id={styles.preference} onClick={(() => openModal("commodity"))}>
-            <div className={styles.left}>
-              <RiOilLine />
-              <p>Add commodity</p>
-            </div>
-            <IoIosArrowForward />
-          </div> */}
         </div>
       </div>
       {modal && <AddPreferenceModal type ={type} setModal={setModal}/>}

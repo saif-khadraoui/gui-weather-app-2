@@ -11,11 +11,14 @@ app.use(express.json())
 const PORT = 1999
 const mongodb_password = "ZGinYe4ggKtnB73b"
 
+// connect to the database
 mongoose.connect(`mongodb+srv://saifkhadraoui656:${mongodb_password}@cluster0.affvno1.mongodb.net/`).then((response) => {
     if(response){
         console.log("connected to db")
     }
 })
+
+// api endpoints to query the database
 
 app.post("/api/register", async(req,res) => {
     const { email, username, password } = req.body;
@@ -81,14 +84,6 @@ app.get("/api/getProfile", async(req, res) => {
 
 app.post("/api/updateLocationPreference", async(req, res) => {
     const { userId, savedLocations } = req.body;
-
-    // need to fix db solution
-    // await UsersModel.updateOne((
-    //     { _id: userId,
-    //       locations: { $not: { $elemMatch: { id: savedLocations[i].id } } }
-    //     },
-    //     { $push: { locations: savedLocations[i] } }
-    //   ))
 
     try{
         for(let i=0; i<=savedLocations.length-1; i++){
@@ -166,15 +161,7 @@ app.post("/api/deleteSavedCrop", async(req, res) => {
 
 })
 
-// app.get("/api/getSavedLocations", async(req, res) => {
-//     const { userId } = req.body;
-
-//     try{
-//         const response = 
-//     }
-// })
-
-
+// start the server
 app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`)
 })

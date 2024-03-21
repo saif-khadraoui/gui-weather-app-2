@@ -54,6 +54,7 @@ function Alerts() {
 
   }
 
+  // gets the weather 
   const getWeather = async (location) => {
     const apiKey = "286326f4933546ffacd81752240103"
     await Axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=5&aqi=yes&alerts=yes`).then((response) => {
@@ -65,6 +66,7 @@ function Alerts() {
   }
 
 
+  // call the get functions to receive the weather data 
   const getAlerts = async (location) => {
     if(location == "Select a location"){
       setLocationPicked("")

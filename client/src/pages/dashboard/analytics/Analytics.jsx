@@ -27,11 +27,12 @@ function Analytics() {
       'Lean Hogs (CME)': '🐖'
     };
 
-
+  // state for data
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // loads the crop data when the page initially renders
   useEffect(() => {
     const fetchData = async () => {
       try {

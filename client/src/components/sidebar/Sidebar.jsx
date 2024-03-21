@@ -13,6 +13,8 @@ import MenuLink from './menuLink/MenuLink';
 function Sidebar() {
   const userId = localStorage.getItem("userId")
 
+
+  // sidebar when user is not logged in
   const items = [
     {
       title: "Weather",
@@ -36,6 +38,7 @@ function Sidebar() {
     }
   ]
 
+  // sidebar adds this when user is logged in
   const settingsItem = {
     title: "Settings",
     path: `/dashboard/settings/${userId}`,
