@@ -12,11 +12,19 @@ import LocationSelector from '../../../components/locationSelector/LocationSelec
 
 
 function Home() {
+
+
   const geolocation = useGeolocation()
   const userId = localStorage.getItem("userId")
+
+  // get the days of the week so the weekly weather loops through them
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+
+  // get the current date
   const d = new Date().getDay()
   const currentDay = days[d]
+
+  // state
   const {toastState, setToastState} = useContext(UserContext)
   const [position, setPosition] = useState();
   const [location, setLocation] = useState("")
@@ -33,15 +41,15 @@ function Home() {
   const [weeklyWeather, setWeeklyWeather] = useState([])
   const [dayWeather, setDayWeather] = useState([])
 
+  // calls the search weather function when the user enters search
   const enterSearch = async (event) => {
     if (event.key == "Enter"){
       await searchWeather(location)
     }
   }
 
+  // gets the weather data
   const searchWeather = async (location) => {
-    console.log(location)
-    console.log(weeklyWeather)
     setChosenLocation(location)
 
     const apiKey = "286326f4933546ffacd81752240103"
@@ -60,9 +68,7 @@ function Home() {
         wind: response.data.current.wind_kph,
         icon: response.data.current.condition.icon
       })
-      console.log(response.data)
       setWeeklyWeather(response.data?.forecast?.forecastday)
-      console.log(response.data?.forecast?.forecastday[0]?.hour)
       setDayWeather(response.data?.forecast?.forecastday[0].hour)
       if(response.data.current.wind_kph > 10 && response.data.current.wind_kph < 30){
         toast("It isn't too windy in this location, crops here should be safe")
@@ -74,8 +80,8 @@ function Home() {
 
   }
 
+  // gets the current weather
   const getCurrentWeather = async (latitude, longitude) => {
-    // console.log(position.latitude)
     const apiKey = "286326f4933546ffacd81752240103"
 
     await Axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${latitude}, ${longitude}&days=5&aqi=no&alerts=no`).then((response) => {
@@ -92,7 +98,6 @@ function Home() {
     setWeeklyWeather(response.data?.forecast?.forecastday)
     setDayWeather(response.data?.forecast?.forecastday[0].hour)
     if(toastState === false){
-      //console.log(response.data.wind_kph)
       if(response.data.current.wind_kph > 10 && response.data.current.wind_kph < 30){
         toast("It isn't too windy, your crops should be safe today")
       }
@@ -102,22 +107,9 @@ function Home() {
     
   }
 
-  const getLocation = async () => {
-    const apiKey = "AIzaSyAtcogGL_3iJSG-zhsONFnbtYkCQaPi3HU"
-    await Axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${position?.latitude},${position?.longitude}&key=${apiKey}`).then((response) => {
-      //console.log(response)
-    })
-  }
 
-
-
+  // when the page renders, the current weather is fetched for the users geolocation
   useEffect(() => {
-    // const latitude = geolocation?.latitude
-    // const longitude = geolocation?.longitude
-    // console.log(latitude)
-    // console.log(longitude)
-
-
     const getCurrentLocationWeather = async () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -133,6 +125,8 @@ function Home() {
 
     }
 
+    
+    // gets the locations and crops the user enters in their settings
     const getLocations = async () => {
       const id = userId
       await Axios.get("http://localhost:1999/api/getProfile", {

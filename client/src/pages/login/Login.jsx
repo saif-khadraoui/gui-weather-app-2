@@ -15,6 +15,7 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
+  // function to check if user can log in 
   const handleSubmit = (e) => {
     e.preventDefault();
     Axios.get("http://localhost:1999/api/login", {

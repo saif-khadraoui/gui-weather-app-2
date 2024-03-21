@@ -10,9 +10,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 function History() {
   const apiKey = "286326f4933546ffacd81752240103"
+
+  // get the current date in a normal format
   const currentDate = new Date().toISOString().slice(0, 10)
   console.log(currentDate)
   const [date, setDate] = useState(currentDate)
+
+  // state for weather data
   const [weatherData, setWeatherData] = useState({
     temperature: null,
     date: null,
@@ -21,6 +25,8 @@ function History() {
     wind: null
   })
   const [dayWeather, setDayWeather] = useState([])
+
+  // get weather data for a speficic date
 
   const fetchWeather = async (datePicked) => {
     await Axios.get(`http://api.weatherapi.com/v1/history.json?key=${apiKey}&q=London&dt=${datePicked ? datePicked : currentDate}`).then((response) => {
@@ -38,15 +44,16 @@ function History() {
     })
   }
 
+  // fetches the weather whenever the date changes
   useEffect(() => {
     
     fetchWeather()
   }, [date])
 
+
+  // function  fetch the weather data with a date the user picked
   const searchDate = async () => {
-    console.log(date)
     const datePicked = date["$y"] + "-" + date["$m"] +  (String(parseInt(date["$M"]) + 1)) + "-" + ((parseInt(date["$D"]) < 10) ? "0" + date["$D"] :  date["$D"]) 
-    console.log(datePicked)
     fetchWeather(datePicked)
   }
 

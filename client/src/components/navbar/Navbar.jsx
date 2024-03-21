@@ -7,6 +7,7 @@ function Navbar() {
   const navigate = useNavigate()
   const userId = localStorage.getItem("userId")
 
+  // opens the sidebar
   const openMobileSidebar = () => {
       document.getElementById("mobileContainer").style.display = "block"
       document.getElementById("hamburger").style.display = "none"
@@ -18,7 +19,7 @@ function Navbar() {
 
   const logout = () => {
     localStorage.clear()
-    navigate("/dashboard")
+    navigate("/")
   }
 
   return (

@@ -12,6 +12,7 @@ function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  // check if user can register
   const handleSubmit = (e) => {
     console.log(email, username, password)
     e.preventDefault();
