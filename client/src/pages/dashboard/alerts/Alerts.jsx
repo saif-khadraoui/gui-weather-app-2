@@ -12,7 +12,7 @@ function Alerts() {
   const [locations, setLocations] = useState([])
   const [locationPicked, setLocationPicked] = useState("")
   const [weatherData, setWeatherData] = useState([])
-  const [riskScore, setRiskScore] = useState()
+  const [riskScore, setRiskScore] = useState(0)
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -29,12 +29,28 @@ function Alerts() {
     getUserDetails()
   }, [])
 
-  const cropRiskAlgorithm = () => {
+  const cropRiskAlgorithm = (result) => {
     // How the algorithm works
     // Assign each weather variable i.e wind, precipitation, humidity a score out of 10 for that location picked
     // Calculate the average score between the variables
     // This is for overall farm as different crops have different weather needs i.e some plant require a higher humidity, some don't
-    
+
+    // pressure score is calculated based on average atmospheric pressure which is 1013.25 millibars and is a ratio of the 33%
+    const pressure_score = (((result.current?.pressure_mb) - 1013.25) / (result.current?.pressure_mb) * 100)  * 0.33
+    console.log(((result.current?.pressure_mb) - 1013.25) / (result.current?.pressure_mb) * 100)
+    console.log(pressure_score)
+
+
+    // air quality score is calculated as a percentage of the highest air quality which is 10 and is a ratio of the 33%
+    const air_quality_score = ((result.current?.air_quality["gb-defra-index"] / 10) * 100) * 0.33
+    console.log(air_quality_score)
+
+    // uv index is calculated as a percentage of the highest uv index which is 10 and is a ratio of the 33%
+    const uv_index_score = ((result.current?.uv / 10) * 100) * 0.33
+    console.log(uv_index_score)
+
+    console.log(pressure_score + air_quality_score + uv_index_score)
+    setRiskScore((pressure_score + air_quality_score + uv_index_score) / 100)
 
   }
 
@@ -109,7 +125,7 @@ function Alerts() {
                           { color: '#EA4228' }
                         ]
                       }}
-                      value={10}
+                      value={riskScore}
                       pointer={{type: "arrow", elastic: true}}
                     />
                   </div>

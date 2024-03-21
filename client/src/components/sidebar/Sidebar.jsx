@@ -16,7 +16,7 @@ function Sidebar() {
   const items = [
     {
       title: "Weather",
-      path: "/dashboard/",
+      path: "/",
       icon: <FaCloud />
     },
     {
