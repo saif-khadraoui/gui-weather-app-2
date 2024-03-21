@@ -22,7 +22,7 @@ function Login() {
     }).then((response) => {
       console.log(response.data)
       if(response.data){
-        navigate("/dashboard")
+        navigate("/")
         localStorage.setItem("userId", response.data._id)
       } else{
         toast("Incorrect email or password!")
