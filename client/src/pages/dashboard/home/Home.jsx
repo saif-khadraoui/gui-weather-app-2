@@ -20,6 +20,7 @@ function Home() {
   const {toastState, setToastState} = useContext(UserContext)
   const [position, setPosition] = useState();
   const [location, setLocation] = useState("")
+  const [crops, setCrops] = useState([])
   const [chosenLocation, setChosenLocation] = useState("")
   const [weatherData, setWeatherData] = useState({
     temperature: null,
@@ -139,6 +140,7 @@ function Home() {
       }).then((response) => {
           console.log(response)
           setLocations(response.data[0].locations)
+          setCrops(response.data[0].crops)
       })
   }
 
@@ -279,9 +281,35 @@ function Home() {
 
 
         </div>
-        <div className={styles.commoditiesGraph}>
+        <div className={styles.cropsTable}>
           {userId ? (
-            <p>Change your preference in settings for commodities</p>
+            <div className={styles.crops}>
+            <table>
+              <tr>
+                <th>Crop</th>
+                <th>Precipitation needed</th>
+                <th>Humidity needed</th>
+                <th>Risk</th>
+              </tr>
+              {crops.length > 0 ? (
+                <>
+                  {crops?.map((crop, idx) => {
+                    return (
+                      <tr>
+                        <td>{crop.name}</td>
+                        <td>{crop.precip_needed} inches</td>
+                        <td>{crop.humidity_needed}</td>
+                        <td>10</td>
+                      </tr>
+                    )
+                  })}
+                </>
+              ) : (
+                <p>Add some crops from your farm in settings to see more detail</p>
+              )}
+              
+            </table>
+          </div>
           ) : (
             <p>Login to see your favourite farm utilities</p>
           )}

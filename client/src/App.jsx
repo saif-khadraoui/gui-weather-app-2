@@ -22,8 +22,8 @@ function App() {
       <UserContext.Provider value={{ savedCrops, setSavedCrops, savedLocations, setSavedLocations, toastState, setToastState }}>
       <Router>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />}>
-            <Route path="/dashboard" index element={<Home />} />
+          <Route path="/" element={<Dashboard />}>
+            <Route path="/" index element={<Home />} />
             <Route path="/dashboard/history" element={<History />} />
             <Route path="/dashboard/analytics" element={<Analytics />} />
             <Route path="/dashboard/alerts" element={<Alerts />} />

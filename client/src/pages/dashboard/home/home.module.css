@@ -164,13 +164,12 @@
     width: 15px;
 }
 
-.commoditiesGraph{
+.cropsTable{
     background-color: white;
     width: 470px;
     height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 20px;
+
 }
 
 @media screen and (max-width: 1000px) {
